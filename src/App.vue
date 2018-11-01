@@ -11,7 +11,7 @@ import QuotesList from './components/QuotesList.vue';
 
 @Component({
   components: {
-    QuotesList,
+    QuotesList
   },
 })
 export default class App extends Vue {}

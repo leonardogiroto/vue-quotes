@@ -1,5 +1,10 @@
 <template>
   <div class="quotes-list">
+    <NewQuote
+      @addNewQuote="addQuote"
+      :limitReached="limitReached"
+    />
+
     <h1>My Quotes</h1>
     <ul>
       <li v-for="quote in quotes" v-bind:key="quote.id" >
@@ -24,12 +29,14 @@ import { Quote as QuoteInterface } from '../interfaces/quote.interface';
 import Quote from './Quote.vue';
 import Button from './layout/Button.vue';
 import Notification from './layout/Notification.vue';
+import NewQuote from './NewQuote.vue';
 
 @Component({
   components: {
     Quote,
     Button,
-    Notification
+    Notification,
+    NewQuote
   }
 })
 export default class QuotesList extends Vue {
@@ -39,18 +46,12 @@ export default class QuotesList extends Vue {
     'value': 'Lorem Ipsum'
   }];
   public notificationText?: string = '';
+  public limitReached: boolean = false;
 
-  public addQuote() {
-    if (this.quotes.length === 5) {
-      this.notificationText = 'Limit reached';
-      setTimeout(() => this.notificationText = '', 3000);
-
-    } else {
-      this.quotes.push({
-        'id': this._generateUid(),
-        'value': this._getRandomQuote()
-      });
-    }
+  public addQuote(quote?: string) {
+    this.limitReached ?
+      this._notifyLimitReached() :
+      this._pushNewQuote(quote);
   }
 
   private _generateUid(): string {
@@ -69,6 +70,19 @@ export default class QuotesList extends Vue {
 
   private _getRandomNumber(): number {
     return Math.floor(Math.random() * 5);
+  }
+
+  private _pushNewQuote(quote?: string): void {
+    this.quotes.push({
+      'id': this._generateUid(),
+      'value': quote ? quote : this._getRandomQuote()
+    });
+    this.limitReached = this.quotes.length === 5;
+  }
+
+  private _notifyLimitReached(): void {
+    this.notificationText = 'Limit reached';
+    setTimeout(() => this.notificationText = '', 3000);
   }
 
 }
