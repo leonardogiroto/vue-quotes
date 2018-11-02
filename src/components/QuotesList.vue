@@ -2,19 +2,24 @@
   <div class="quotes-list">
     <NewQuote
       @addNewQuote="addQuote"
-      :limitReached="limitReached"
+      :limitReached="quotes.length === 10"
     />
 
-    <h1>My Quotes</h1>
     <ul>
-      <li v-for="quote in quotes" v-bind:key="quote.id" >
-        <Quote :quote="quote.value" />
+      <li v-for="(quote, index) in quotes" v-bind:key="quote.id" >
+        <Quote
+          :quote="quote.value"
+          @click.native="removeQuote(index)"
+        />
       </li>
     </ul>
     <Button
       text="Add Quote"
       @click.native="addQuote()" 
     />
+
+    <p>Click on a quote to delete it!</p>
+
     <Notification
       v-if="notificationText !== ''"
       :text="notificationText"
@@ -46,12 +51,16 @@ export default class QuotesList extends Vue {
     'value': 'Lorem Ipsum'
   }];
   public notificationText?: string = '';
-  public limitReached: boolean = false;
 
-  public addQuote(quote?: string) {
-    this.limitReached ?
+  public addQuote(quote?: string): void {
+    this.quotes.length === 10 ?
       this._notifyLimitReached() :
       this._pushNewQuote(quote);
+  }
+
+  public removeQuote(index: number): void {
+    this.quotes.splice(index, 1);
+    this.$emit('updateProgress', this.quotes.length);
   }
 
   private _generateUid(): string {
@@ -77,7 +86,7 @@ export default class QuotesList extends Vue {
       'id': this._generateUid(),
       'value': quote ? quote : this._getRandomQuote()
     });
-    this.limitReached = this.quotes.length === 5;
+    this.$emit('updateProgress', this.quotes.length);
   }
 
   private _notifyLimitReached(): void {
@@ -89,15 +98,12 @@ export default class QuotesList extends Vue {
 </script>
 
 <style scoped lang="scss">
-h1 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  li {
+    display: inline-block;
+    margin: 0 10px;
+  }
 </style>

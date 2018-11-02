@@ -17,5 +17,9 @@ export default class Quote extends Vue {
 </script>
 
 <style scoped lang="scss">
-
+  div.quote {
+    &:hover {
+      background: rgba(255, 0, 0, 0.2);
+    }
+  }
 </style>

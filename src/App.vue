@@ -1,20 +1,30 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <QuotesList />
+    <Header :currentProgress="currentProgress" />
+    <QuotesList @updateProgress="updateProgress" />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import QuotesList from './components/QuotesList.vue';
+import Header from './components/Header.vue';
 
 @Component({
   components: {
+    Header,
     QuotesList
   },
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+
+  public currentProgress: number = 1;
+
+  public updateProgress(progress: number): void {
+    this.currentProgress = progress;
+  }
+
+}
 </script>
 
 <style lang="scss">
