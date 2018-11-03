@@ -1,7 +1,9 @@
 <template>
   <div id="app">
-    <Header :currentProgress="currentProgress" />
-    <QuotesList @updateProgress="updateProgress" />
+    <div class="content" >
+      <Header :currentProgress="currentProgress" />
+      <QuotesList @updateProgress="updateProgress" />
+    </div>
   </div>
 </template>
 
@@ -13,7 +15,7 @@ import Header from './components/Header.vue';
 @Component({
   components: {
     Header,
-    QuotesList
+    QuotesList,
   },
 })
 export default class App extends Vue {
@@ -29,11 +31,22 @@ export default class App extends Vue {
 
 <style lang="scss">
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: 'Mali', cursive;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  color: #666;
+  background: #fefbf6;
+  height: calc(100vh - 30px);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(100vw - 30px);
+  padding: 15px;
+
+  div.content {
+    max-width: 960px;
+    margin: 0 auto;
+  }
 }
 </style>

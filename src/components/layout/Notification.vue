@@ -20,10 +20,10 @@ export default class Notification extends Vue {
     cursor: pointer;
     position: fixed;
     bottom: 0;
-    background: black;
+    background: #251605;
     color: white;
     width: 200px;
-    left: calc(50% - 100px);
+    left: calc(50% - 110px);
     padding: 10px;
   }
 </style>

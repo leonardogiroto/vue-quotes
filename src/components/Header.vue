@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <h1>My Quotes</h1>
+    <h1>MY QUOTES</h1>
     <Progress
       :current="currentProgress"
       :total="10"
@@ -14,8 +14,8 @@ import Progress from './layout/Progress.vue';
 
 @Component({
   components: {
-    Progress
-  }
+    Progress,
+  },
 })
 export default class Header extends Vue {
 
@@ -25,5 +25,7 @@ export default class Header extends Vue {
 </script>
 
 <style scoped lang="scss">
-
+  h1 {
+    margin-top: 10px;
+  }
 </style>

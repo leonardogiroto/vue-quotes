@@ -22,25 +22,41 @@ export default class Progress extends Vue {
 
 <style scoped lang="scss">
   div.progress-bar {
-    height: 50px;
+    height: 40px;
     position: relative;
     display: flex;
     justify-content: center;
-    border: 1px solid;
+    border: 1px solid lightgray;
     background: lightgray;
+    border-radius: 4px;
 
     p {
       color: white;
       font-weight: 600;
+      margin: 0;
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
     }
 
     div.progress-overlay {
-      background: blue;
-      height: 50px;
+      background: #FE5D26;
+      height: 40px;
       position: absolute;
       top: 0;
       left: 0;
       z-index: 1;
+    }
+  }
+
+  @media only screen and (max-width: 478px) {
+    div.progress-bar {
+      height: 30px;
+
+      div.progress-overlay {
+        height: 30px;
+      }
     }
   }
 </style>

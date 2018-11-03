@@ -1,10 +1,5 @@
 <template>
   <div class="quotes-list">
-    <NewQuote
-      @addNewQuote="addQuote"
-      :limitReached="quotes.length === 10"
-    />
-
     <ul>
       <li v-for="(quote, index) in quotes" v-bind:key="quote.id" >
         <Quote
@@ -13,12 +8,21 @@
         />
       </li>
     </ul>
+
+    <p class="obs" >
+      <i v-if="quotes.length > 0" >obs: click on a quote to delete it!</i>
+    </p>
+
+    <h2>Add new quotes!</h2>
+    <NewQuote
+      @addNewQuote="addQuote"
+      :limitReached="quotes.length === 10"
+    />
+    <p>or if you prefer...</p>
     <Button
-      text="Add Quote"
+      text="Generate Random Quote"
       @click.native="addQuote()" 
     />
-
-    <p>Click on a quote to delete it!</p>
 
     <Notification
       v-if="notificationText !== ''"
@@ -41,14 +45,14 @@ import NewQuote from './NewQuote.vue';
     Quote,
     Button,
     Notification,
-    NewQuote
-  }
+    NewQuote,
+  },
 })
 export default class QuotesList extends Vue {
 
   public quotes: QuoteInterface[] = [{
-    'id': this._generateUid(),
-    'value': 'Lorem Ipsum'
+    id: this._generateUid(),
+    value: 'We must all make the choice between what is right and what is easy',
   }];
   public notificationText?: string = '';
 
@@ -83,8 +87,8 @@ export default class QuotesList extends Vue {
 
   private _pushNewQuote(quote?: string): void {
     this.quotes.push({
-      'id': this._generateUid(),
-      'value': quote ? quote : this._getRandomQuote()
+      id: this._generateUid(),
+      value: quote ? quote : this._getRandomQuote(),
     });
     this.$emit('updateProgress', this.quotes.length);
   }
@@ -101,9 +105,24 @@ export default class QuotesList extends Vue {
   ul {
     list-style-type: none;
     padding: 0;
+    margin-bottom: 0;
+    margin-top: 25px;
+    overflow-y: auto;
+    max-height: calc(100vh - 560px);
   }
-  li {
-    display: inline-block;
-    margin: 0 10px;
+  p.obs {
+    border-bottom: 1px dashed lightgray;
+    padding-bottom: 25px;
+    margin-bottom: 10px;
+  }
+
+  @media only screen and (max-width: 478px) {
+    ul {
+      margin-top: 20px;
+      max-height: calc(100vh - 500px);
+    }
+    p.obs {
+      padding-bottom: 15px;
+    }
   }
 </style>

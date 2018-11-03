@@ -18,11 +18,15 @@ export default class Button extends Vue {
 <style scoped lang="scss">
   button.simple-btn {
     cursor: pointer;
-    border: none;
-    background: transparent;
-    border: 1px solid red;
-    color: red;
-    padding: 5px 10px;
-    border-radius: 10px;
+    background: #FE5D26;
+    border: 1px solid #FE5D26;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    outline: none;
+
+    &:hover {
+      background: rgba(254, 93, 38, 0.9);
+    }
   }
 </style>

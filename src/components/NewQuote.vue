@@ -1,6 +1,6 @@
 <template>
   <div class="new-quote">
-    <p>Type new quote and hit enter!</p>
+    <p>Type new quote below and hit enter</p>
     <form>
       <textarea
         rows="3"
@@ -31,5 +31,11 @@ export default class NewQuote extends Vue {
 </script>
 
 <style scoped lang="scss">
-
+  form {
+    textarea {
+      border-radius: 4px;
+      width: 280px;
+      height: 75px;
+    }
+  }
 </style>
