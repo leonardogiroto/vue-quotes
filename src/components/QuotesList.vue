@@ -18,7 +18,9 @@
       @addNewQuote="addQuote"
       :limitReached="quotes.length === 10"
     />
-    <p>or if you prefer...</p>
+    <p v-blink.delay.repeat="3" >
+      or if you prefer...
+    </p>
     <Button
       text="Generate Random Quote"
       @click.native="addQuote()" 
@@ -39,6 +41,7 @@ import Quote from './Quote.vue';
 import Button from './layout/Button.vue';
 import Notification from './layout/Notification.vue';
 import NewQuote from './NewQuote.vue';
+import Blink from '../directives/Blink.vue';
 
 @Component({
   components: {
@@ -46,6 +49,9 @@ import NewQuote from './NewQuote.vue';
     Button,
     Notification,
     NewQuote,
+  },
+  directives: {
+    Blink,
   },
 })
 export default class QuotesList extends Vue {
