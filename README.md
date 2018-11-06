@@ -1,31 +1,43 @@
-# vue-quotes
+# Vue Quotes
 
-## Project setup
+Projeto simples desenvolvido com objetivo de aprender VueJS (+ TS & SCSS).  
+Single Page Web Application de Visualização de Quotes.
+
+## Demo
+
+Versão Demo Publicada na Netlify.  
+Link: https://inspiring-haibt-c95df9.netlify.com/
+
+## Environment
+
+VueJS 2.5.17  
+Vue CLI 3.0.5  
+Typescript 3.1.6  
+
+## Instalação
+
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+## Rodando o Projeto
+
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+## Build para Produção
+
 ```
 npm run build
 ```
 
-### Run your tests
+## Testes
+
+Testes com Jest
+
+### Rodando Testes
+
 ```
 npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Run your unit tests
-```
-npm run test:unit
 ```
