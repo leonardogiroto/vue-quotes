@@ -1,6 +1,6 @@
 <template>
   <div class="progress-bar" >
-    <p>{{ current }} / {{ total }}</p>
+    <p>{{ current }} / {{ total }} ({{ current/total | toPercentage }})</p>
     <div
       class="progress-overlay"
       :style="{ width: (current * 100 / total) + '%' }"
@@ -10,8 +10,11 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import toPercentage from '@/filters/Percentage.vue';
 
-@Component
+@Component({
+  filters: toPercentage,
+})
 export default class Progress extends Vue {
 
   @Prop() public current!: number;
