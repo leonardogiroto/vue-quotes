@@ -86,7 +86,7 @@ export default class QuotesList extends Vue {
   private async _getRandomQuote() {
     try {
       const response = await this.$http.get(
-        'http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1&noCache='
+        'https://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1&noCache='
           + this._getRandomNumber(),
       );
       const quoteAPIResponse: QuoteAPIResponse[] = await response.json();
