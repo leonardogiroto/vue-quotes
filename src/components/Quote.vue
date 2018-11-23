@@ -1,7 +1,7 @@
 <template>
-  <p class="quote">
-    {{ quote }}
-  </p>
+  <p class="quote"
+    v-html="quote"
+  ></p>
 </template>
 
 <script lang="ts">

@@ -37,6 +37,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { Quote as QuoteInterface } from '../interfaces/quote.interface';
+import { QuoteAPIResponse } from '../interfaces/quoteAPIResponse.interface';
 import Quote from './Quote.vue';
 import Button from './layout/Button.vue';
 import Notification from './layout/Notification.vue';
@@ -82,9 +83,23 @@ export default class QuotesList extends Vue {
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
   }
 
-  private _getRandomQuote(): string {
-    const words = [ 'Lorem', 'Ipsum', 'Dolor', 'Sit', 'Amet' ];
-    return words[ this._getRandomNumber() ] + ' ' + words[ this._getRandomNumber() ];
+  private async _getRandomQuote() {
+    try {
+      const response = await this.$http.get(
+        'http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1&noCache='
+          + this._getRandomNumber(),
+      );
+      const quoteAPIResponse: QuoteAPIResponse[] = await response.json();
+
+      this.quotes.push({
+        id: this._generateUid(),
+        value: this._getTextFromHtml( quoteAPIResponse[0].content ),
+      });
+      this.$emit('updateProgress', this.quotes.length);
+
+    } catch (error) {
+      alert('Ops, there was an error generating a random quote... Sorry about that.');
+    }
   }
 
   private _getRandomNumber(): number {
@@ -92,16 +107,27 @@ export default class QuotesList extends Vue {
   }
 
   private _pushNewQuote(quote?: string): void {
-    this.quotes.push({
-      id: this._generateUid(),
-      value: quote ? quote : this._getRandomQuote(),
-    });
-    this.$emit('updateProgress', this.quotes.length);
+    if (quote) {
+      this.quotes.push({
+        id: this._generateUid(),
+        value: quote,
+      });
+      this.$emit('updateProgress', this.quotes.length);
+
+    } else {
+      this._getRandomQuote();
+    }
   }
 
   private _notifyLimitReached(): void {
     this.notificationText = 'Limit reached';
     setTimeout(() => this.notificationText = '', 3000);
+  }
+
+  private _getTextFromHtml(htmlContent: string): string {
+    const tmp = document.createElement('DIV');
+    tmp.innerHTML = htmlContent;
+    return tmp.textContent || tmp.innerText || '';
   }
 
 }

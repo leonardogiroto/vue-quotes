@@ -1,7 +1,8 @@
 # Vue Quotes
 
 Projeto simples desenvolvido com objetivo de aprender VueJS (+ TS & SCSS).  
-Single Page Web Application de Visualização de Quotes.
+Single Page Web Application de Visualização de Quotes.  
+Quotes API utilizada para Random Quotes: https://quotesondesign.com/api-v4-0/
 
 ## Demo
 
@@ -12,6 +13,7 @@ Link: https://inspiring-haibt-c95df9.netlify.com/
 
 VueJS 2.5.17  
 Vue CLI 3.0.5  
+Vue-Resource 1.5.1  
 Typescript 3.1.6  
 
 ## Instalação
