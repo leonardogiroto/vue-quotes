@@ -9,6 +9,17 @@
       </li>
     </ul>
 
+    <Button
+      v-if="!isLoggedIn()"
+      text="Login"
+      @click.native="logIn()" 
+    />
+    <Button
+      v-if="isLoggedIn()"
+      text="View Random Quote"
+      @click.native="viewQuote()" 
+    />
+
     <p class="obs" >
       <i v-if="quotes.length > 0" >obs: click on a quote to delete it!</i>
     </p>
@@ -62,6 +73,24 @@ export default class QuotesList extends Vue {
     value: 'We must all make the choice between what is right and what is easy',
   }];
   public notificationText?: string = '';
+
+  public logIn(): void {
+    localStorage.setItem('VueLogged', 'true');
+    location.reload();
+  }
+
+  public isLoggedIn(): boolean {
+    const logged = localStorage.getItem('VueLogged');
+    return logged === 'true';
+  }
+
+  public viewQuote(): void {
+    const quote = this.quotes[
+      Math.floor( Math.random() * this.quotes.length )
+    ];
+    localStorage.setItem('VueQuote', quote.value);
+    this.$router.push('/view-quote/awesome');
+  }
 
   public addQuote(quote?: string): void {
     this.quotes.length === 10 ?
