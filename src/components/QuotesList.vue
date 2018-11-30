@@ -54,6 +54,7 @@ import Button from './layout/Button.vue';
 import Notification from './layout/Notification.vue';
 import NewQuote from './NewQuote.vue';
 import Blink from '../directives/Blink.vue';
+import * as types from '../store/quotes/types';
 
 @Component({
   components: {
@@ -88,7 +89,12 @@ export default class QuotesList extends Vue {
     const quote = this.quotes[
       Math.floor( Math.random() * this.quotes.length )
     ];
-    localStorage.setItem('VueQuote', quote.value);
+
+    this.$store.dispatch(
+      types.UPDATE_VALUE,
+      quote,
+    );
+
     this.$router.push('/view-quote/awesome');
   }
 

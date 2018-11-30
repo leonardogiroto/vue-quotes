@@ -16,6 +16,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import * as types from '../store/quotes/types';
 
 @Component({})
 export default class Single extends Vue {
@@ -25,7 +26,9 @@ export default class Single extends Vue {
 
   public created() {
     this.comment = this.$route.params.comment;
-    this.quote = localStorage.getItem('VueQuote');
+    this.quote = this.$store
+      .getters[types.GET_QUOTE]
+      .value;
   }
 }
 </script>
